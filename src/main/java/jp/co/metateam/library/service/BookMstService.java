@@ -52,36 +52,7 @@ public class BookMstService {
 
         return bookMstDtoList;
     }
-    public boolean checkEntry(BookMstDto bookMstDto, Model model) {
-        String bookIsbn = bookMstDto.getIsbn();
-        String bookTitle = bookMstDto.getTitle();
-        List<String> errTitleList = new ArrayList<>();
-        List<String> errIsbnList = new ArrayList<>();
-        boolean hasError = false;
-
-        if (StringUtils.isEmpty(bookTitle)) {
-            errTitleList.add("書籍名は必須です");
-            hasError = true;
-        }
     
-        
-        if (StringUtils.isEmpty(bookIsbn) || !bookIsbn.matches("\\d{13}")) {
-            errIsbnList.add("ISBNは13桁の数字で入力してください");
-            hasError = true;
-        }
-    
-        
-        if (hasError) {
-            if (!errTitleList.isEmpty()) {
-                model.addAttribute("errTitle", errTitleList);
-            }
-            if (!errIsbnList.isEmpty()) {
-                model.addAttribute("errIsbn", errIsbnList);
-            }
-        }
-    
-        return !hasError;
-    }
     
     public boolean existsByIsbn(String isbn) {
         return bookMstRepository.existsByIsbn(isbn);
